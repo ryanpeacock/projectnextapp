@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Provider } from "jotai";
+import AppSidebar from "@/components/AppSidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +31,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Provider>
+          <SidebarProvider>
+            <div className="flex w-full">
+              <AppSidebar />
+              <div className="w-full p-5">
+                <div className="w-3/4 mx-auto my-6">{children}</div>
+              </div>
+            </div>
+          </SidebarProvider>
+        </Provider>
       </body>
     </html>
   );
